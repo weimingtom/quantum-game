@@ -47,7 +47,8 @@
         	<outputDirectory></outputDirectory>
         	
         	<includes>                
-                <include>bot.txt</include>                               
+                <include>bot.txt</include>  
+                <include>license.txt</include>                             
             </includes>        	
     	</fileSet>	
     	
