@@ -1,0 +1,95 @@
+<assembly>
+	<id>pack</id>
+	<baseDirectory>quantum</baseDirectory>
+	<formats>
+		<format>zip</format>
+	</formats>	
+	
+	<fileSets>
+		<fileSet>
+    		<directory>dat</directory>
+        	<outputDirectory>dat/</outputDirectory>
+        	
+        	<includes>                
+                <include>*.png</include>
+                <include>*.bmp</include>           
+                <include>*.ttf</include>                                       
+            </includes>        	
+    	</fileSet>
+    	
+    	<fileSet>
+    		<directory>dat/recordings</directory>
+        	<outputDirectory>dat/recordings</outputDirectory>        	        	        	       
+    	</fileSet>
+    	
+    	<fileSet>
+    		<directory>dat/maps</directory>
+        	<outputDirectory>dat/maps</outputDirectory>
+        	
+        	<includes>                
+                <include>*.map</include>                               
+            </includes>        	
+    	</fileSet>	
+    	
+    	<fileSet>
+    		<directory>dat/sounds</directory>
+        	<outputDirectory>dat/sounds</outputDirectory>
+        	
+        	<includes>                
+                <include>*.wav</include>                               
+                <include>*.ogg</include>
+            </includes>        	
+    	</fileSet>
+    		
+    		
+    	<fileSet>
+    		<directory></directory>
+        	<outputDirectory></outputDirectory>
+        	
+        	<includes>                
+                <include>bot.txt</include>                               
+            </includes>        	
+    	</fileSet>	
+    	
+    	<fileSet>
+    		<directory>dat/scripts</directory>
+        	<outputDirectory>dat/scripts</outputDirectory>
+        	
+        	<includes>                
+                <include>*.bsh</include>                               
+            </includes>        	
+    	</fileSet>				
+    	
+    	<fileSet>
+    		<directory>lib</directory>
+        	<outputDirectory></outputDirectory>
+    	</fileSet>	
+    	
+    	<fileSet>
+    		<directory></directory>
+    		<outputDirectory></outputDirectory>
+    		<includes>
+    			<include>quantum-server.*</include>    			
+    			<include>quantum-editor.*</include>
+    			<include>quantum.sh</include>
+    		</includes>
+    	</fileSet>
+    	
+    	<fileSet>
+    		<directory>shader</directory>
+    		<outputDirectory>shader</outputDirectory>    
+    	</fileSet>
+    	
+
+    	
+	</fileSets>
+	
+	<files>
+	
+		<file>
+			<source>target/Quantum-${version}-jar-with-dependencies.jar</source>
+			<outputDirectory></outputDirectory>
+			<destName>quantum.jar</destName>
+		</file>
+	</files>
+</assembly>
