@@ -1,0 +1,51 @@
+Compiling
+---------
+Get Maven 2.0 and make sure the bin directory of Maven is accessible via the command line. Set
+the environment variable JAVA_HOME to your JDK directory ( e.g. c:\Program Files\Java\jdk1.6... ).
+open up a command line and either execute dev-setup.bat or dev-setup.sh. This will install
+the dependencies into your local maven repository as well as create an eclipse project. Open
+eclipse and import the project. In order for eclipse to find the dependencies you have to set
+the variable M2_REPO which is usually located in your $homedirectory/.m2/repository. You can
+set the variable in eclipse via window->preferences->Java->Build Path->Classpath Variables. 
+
+The class quantum.Quantum is the main class of the project. You can create a run configuration for it
+via the apropriate eclipse means. Note that you have to specify the parameter -Djava.library.path=lib/
+as your vm parameter in the run configuration. This is true for all executable classes in the package
+quantum.test too. 
+
+Packaging
+---------
+To create a signed webstart jar as well as a zip file version of the complete game simply
+execute the pack.sh or pack.bat file from a command line within the quantum directory. the
+resulting jars and zip file will be placed in the target folder. the webstart jar is signed
+and named quantum.jar. For the webstart version place this jar together with the files 
+bsh-2.04b.jar and vorbisspi-1.03.jar from the lib directory into your web directory. put
+the following content into a file ending with .jnlp
+
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp codebase="http://apistudios.com/hosted/marzec/quantum/" href="quantum-webstart.php">
+	<information>
+		<title>Quantum</title>
+		<vendor>APIStudios</vendor>
+		<homepage href="http://apistudios.com/hosted/marzec/quantum/"/>
+		<description>Quantum - A Free Realtime Strategy Game</description>
+		<description kind="short">Quantum - A Free Realtime Strategy Game</description><offline-allowed/>
+	</information>
+	<resources>
+		<j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+"/>
+		<property name="sun.java2d.noddraw" value="true"/>
+		<jar href="quantum.jar" main="true"/>
+		<jar href="bsh-2.04b.jar" main="false"/>
+		<jar href="vorbisspi-1.03.jar" main="false"/>
+		<extension name="jogl" href="http://download.java.net/media/jogl/builds/archive/jsr-231-webstart-current/jogl.jnlp" />
+	</resources>
+	<security><all-permissions/></security>
+	<application-desc main-class="quantum.Quantum"/>
+</jnlp>
+
+make sure to replace the codebase and href in the jnlp tag with whatever you got. Also, you server
+has to send the appropriate mime-type to the browser so webstart is started on the client. 
+
+The zip file version contains all resources, dlls and a compound jar containing all dependencies. currently
+there is a bug in maven that includes the jar class files twice into the jar. you can remove those manually
+after the packaging stage. i have not yet found a work around for that problem.
