@@ -1,0 +1,1 @@
+java -Xmx256M -Djava.library.path=./ -cp quantum.jar quantum.Quantum

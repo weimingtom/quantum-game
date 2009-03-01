@@ -1,0 +1,43 @@
+package quantum.net.messages;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+public strictfp class DisconnectedMessage extends Message 
+{
+	String name = "";
+	
+	public DisconnectedMessage( ) 
+	{
+		super(MessageTypes.DISCONNECTED);
+		
+	}
+	
+	public DisconnectedMessage( String name )
+	{
+		super(MessageTypes.DISCONNECTED);
+
+		this.name = name;
+	}
+
+	
+	public String getName( )
+	{
+		return name;
+	}
+	
+	@Override
+	public void read(DataInputStream in) throws Exception 
+	{
+		name = readString( in );
+		
+	}
+
+	@Override
+	public void write(DataOutputStream out) throws Exception {
+		out.writeInt( type );
+		writeString( out, name );		
+		out.flush();
+	}
+
+}

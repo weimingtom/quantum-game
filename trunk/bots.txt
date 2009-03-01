@@ -1,0 +1,90 @@
+How to write bot scripts?
+------------------
+
+Bots for quantum are written in BeanShell, a small and lightweight scripting language with the
+syntax of java. To find out more about BeanShell visit the website at http://www.beanshell.org/.
+
+Bot scripts have to be placed in the dat/scripts folder with the suffix .bsh to be recognized
+by quantum. A very simple script is included in the distribution of quantum. 
+
+Errors in your script will be reported when you try to add a bot to a game. 
+
+A bot script has to implement a procedure called update. Within the script you have access to 
+a class instance called "simulation" which offers you query methods to get information on the
+current state of the world as well as methods to move creatures and plant trees. All this 
+methods use integers as arguments and booleans, integers and floats for return types. For the
+query methods you generally specify one or more planets via their ids. Note that specifying
+non existing ids will result in an exception and end the game! 
+
+
+- [ List simulation.getPlanets( ) ]
+	returns a list of all planets on the map. the list contains
+	the ids of all the planets. you can use those with the other
+	methods of the simulation class
+
+- [ List simulation.getPlanetNeighbours( int planet ) ]
+	returns a list of all neighbours of the given planet in form
+	of their ids.
+	
+- [ int simulation.getNearestEnemyPlanet( int planet ) ]
+	returns the nearest enemy planet to the specified planet. in case
+	there's no enemy planet left the specified planet is returned.
+	
+- [ int simulation.findPath( int from_planet, int to_planet )
+	returns the first planet on the path from from_planet to to_planet if
+	a path exists. returns the from_planet otherwise. 
+
+- [ int simulation.findSafePath( int from_planet, int to_planet )
+	returns the first planet on the path from from_planet to to_planet if
+	a path exists. A safe path is composed only of friendly or free planets.
+	returns the from_planet otherwise.	
+	
+- [ float simulation.getHealth( int planet )
+	returns the health creatures produced on the planet will have. value
+	range is from 0 to 1
+	
+- [ float simulation.getStrength( int planet )
+	returns the strength creatures produced on the planet will have. value
+	range is from 0 to 1
+	
+- [ float simulation.getSpeed( int planet )
+	returns the Speed creatures produced on the planet will have. value
+	range is from 0.7 to 1
+
+- [ boolean simulation.isOwnedPlanet( int planet ) ]
+	returns wheter the given planet is owned by this bot. 
+	
+- [ boolean simulation.isEnemyPlanet( int planet ) ]
+	returns wheter the given planet is owned by an enemy. 
+	
+- [ boolean simulation.isFreePlanet( int planet ) ]
+	returns wheter the given planet is not owned by anyone.
+	
+- [ int simulation.numberOfTrees( int planet ) ]
+	returns the number of trees for the this planet. 
+	
+- [ int simulation.numberOfCreatures( int planet ) ]
+	returns the total number of creatures on the planet, summing enemy and friendly
+	creatures.
+	
+- [ int simulation.numberOfFriendlyCreatures( int planet ) ]
+	returns the number of friendly creatures on the planet.
+	
+- [ int simulation.numberOfEnemyCreatures( int planet ) ]
+	returns the number of enemy creatures on the planet.
+	
+- [ int simulation.numberOfMoveableCreatures( int planet ) ]
+	returns the number of creatures that you can move around. this excludes growing
+	creatures as well as creatures attacking an enemy on that planet.
+	
+- [ int simulation.numberAvailableResources( int planet ) ]
+	returns the number of available resources on that planet.
+
+- [ int simulation.numberMaximumResources( int planet ) ]
+	returns the number of total resources this planet holds
+
+- [ boolean boolean creatureLimitReached( ) ]
+	returns wheter the bot has reached it's creature limit	
+
+	
+	  
