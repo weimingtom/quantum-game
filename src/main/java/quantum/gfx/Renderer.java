@@ -365,6 +365,9 @@ public class Renderer
 			gl.glClearColor( 0, 0, 0, 0 );
 			gl.glClear( GL.GL_COLOR_BUFFER_BIT );
 			renderPass(sim, gui, canvas);
+			
+			if( gui != null ) 
+				gui.render( canvas );
 		}
 					
 		
