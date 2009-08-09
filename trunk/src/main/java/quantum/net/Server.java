@@ -145,20 +145,30 @@ public strictfp class Server
 						}
 						
 					});
+															
+					ArrayList<String> filesList = new ArrayList<String>();
+					ArrayList<String> nameList = new ArrayList<String>( );
 					
-					String[] names = new String[files.length];
 					int i = 0;
 					for( String file: files )
 					{
 						Simulation sim = new Simulation( false );
-						sim.load( FileManager.getPath() + "dat/maps/" + file );
-						if( sim.getName().equals( "" ) )
-							names[i++] = file;
-						else
-							names[i++] = sim.getName() + " - " + sim.getAuthor();
+						try
+						{
+							sim.load( FileManager.getPath() + "dat/maps/" + file );
+							if( sim.getName().equals( "" ) )
+								nameList.add( file );
+							else
+								nameList.add( sim.getName() + " - " + sim.getAuthor() );
+							filesList.add( file );
+						}
+						catch( Throwable t )
+						{
+							Log.println( "[Server] error while loading file '" + file + "'" );
+						}
 					}
 					
-					MapListMessage map_msg = new MapListMessage( files, names );
+					MapListMessage map_msg = new MapListMessage( filesList.toArray( new String[0] ), nameList.toArray( new String[0] ) );
 					c.sendMessage( map_msg );
 					
 					//
@@ -237,25 +247,30 @@ public strictfp class Server
 				
 			});
 			
-			String[] names = new String[files.length];
+			ArrayList<String> filesList = new ArrayList<String>();
+			ArrayList<String> nameList = new ArrayList<String>( );
+			
 			int i = 0;
 			for( String file: files )
 			{
 				Simulation sim = new Simulation( false );
-				try {
+				try
+				{
 					sim.load( FileManager.getPath() + "dat/maps/" + file );
-				} catch (Exception e) {
-					Log.println( "[Server] corrupt map file '" + file + "': " + Log.getStackTrace( e ));
-					//shutdown( "corrupt map file!" );	
-					continue;
+					if( sim.getName().equals( "" ) )
+						nameList.add( file );
+					else
+						nameList.add( sim.getName() + " - " + sim.getAuthor() );
+					filesList.add( file );
 				}
-				if( sim.getName().equals( "" ) )
-					names[i++] = file;
-				else
-					names[i++] = sim.getName() + " - " + sim.getAuthor();
+				catch( Throwable t )
+				{
+					Log.println( "[Server] error while loading file '" + file + "'" );
+				}
 			}
 			
-			MapListMessage map_msg = new MapListMessage( files, names );
+			Log.println( "[Server] finished loading files, sending list to client" );					
+			MapListMessage map_msg = new MapListMessage( filesList.toArray( new String[0] ), nameList.toArray( new String[0] ) );						
 			broadcastMessage( map_msg );
 			
 			votes.clear();
@@ -331,7 +346,7 @@ public strictfp class Server
 								}
 								if( msg instanceof MapListMessage )
 								{								
-									MapListMessage map_msg2 = new MapListMessage( files, names );
+									MapListMessage map_msg2 = new MapListMessage( filesList.toArray( new String[0] ), nameList.toArray( new String[0] ) );
 									client.sendMessage( map_msg2 );
 								}
 								if( msg instanceof PlayerListMessage )
