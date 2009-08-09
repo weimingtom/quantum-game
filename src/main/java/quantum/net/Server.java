@@ -245,8 +245,9 @@ public strictfp class Server
 				try {
 					sim.load( FileManager.getPath() + "dat/maps/" + file );
 				} catch (Exception e) {
-					Log.println( "[Server] corrupt map file : " + Log.getStackTrace( e ));
-					shutdown( "corrupt map file!" );					
+					Log.println( "[Server] corrupt map file '" + file + "': " + Log.getStackTrace( e ));
+					//shutdown( "corrupt map file!" );	
+					continue;
 				}
 				if( sim.getName().equals( "" ) )
 					names[i++] = file;
