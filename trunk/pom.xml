@@ -5,7 +5,7 @@
 	<groupId>com.badlogic.quantum</groupId>
 	<artifactId>Quantum</artifactId>
 	<name>Quantum</name>
-	<version>1.31</version>
+	<version>1.33</version>
 	<description>Dyson clone in Java</description>
 	<build>
 		<plugins>
