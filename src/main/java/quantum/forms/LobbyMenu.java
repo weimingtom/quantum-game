@@ -475,7 +475,10 @@ public class LobbyMenu implements DisplayListener
 					MapListMessage map_list = (MapListMessage)msg;
 					this.map_list.removeAll();
 					for( int i = 0; i < map_list.getMaps().size(); i++ )
+					{
+						Log.println( "[LobbyMenu] added map '" + map_list.getNames().get(i)  + "'" );
 						this.map_list.addItem( new Map( map_list.getMaps().get(i), map_list.getNames().get(i) ) );
+					}
 				}
 				
 				if( msg instanceof DisconnectedMessage )
