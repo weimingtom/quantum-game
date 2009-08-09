@@ -721,39 +721,41 @@ public strictfp class Server
 
 		private Simulation loadLevelTesting() 
 		{		
-			Simulation sim2 = loadLevel();
-			if( true )
-				return sim2;
+//			Simulation sim2 = loadLevel();
+//			if( true )
+//				return sim2;
 			
 			Simulation sim = new Simulation( false );
 			
 			Planet p1 = new Planet( sim, new Vector2D( 0, 0 ), 200, 1f, 0.1f, 1f, 20 );
 			Planet p2 = new Planet( sim, new Vector2D( 5000, 0 ), 200, 0.5f, 0.5f, 0.5f, 50 );
 			Planet p3 = new Planet( sim, new Vector2D( 3000, 3000 ), 200, 0.5f, 0.5f, 0.5f, 30 );			
-			Planet p4 = new Planet( sim, new Vector2D( -5000, 0 ), 200, 1f, 1f, 0.1f, 30 );
-			Planet p5 = new Planet( sim, new Vector2D( -3000, 3000 ), 200, 0.5f, 0.5f, 0.5f, 30 );
+//			Planet p4 = new Planet( sim, new Vector2D( -5000, 0 ), 200, 1f, 1f, 0.1f, 30 );
+//			Planet p5 = new Planet( sim, new Vector2D( -3000, 3000 ), 200, 0.5f, 0.5f, 0.5f, 30 );
 			
-			p5.setOwner( clients.get(0).getPlayers().get(0).getId() );
-			p2.setOwner( clients.get(0).getPlayers().get(0).getId() );			
-			p4.setOwner( clients.get(0).getPlayers().get(1).getId() );
+//			p5.setOwner( clients.get(0).getPlayers().get(0).getId() );
+//			p2.setOwner( clients.get(0).getPlayers().get(1).getId() );			
+//			p4.setOwner( clients.get(0).getPlayers().get(2).getId() );
 			
 			sim.addObject( p1 );
 			sim.addObject( p2 );
 			sim.addObject( p3 );
-			sim.addObject( p4 );
-			sim.addObject( p5 );
+//			sim.addObject( p4 );
+//			sim.addObject( p5 );
 			
-			for( int i = 0; i < 20; i++ )	
-			{
-				p2.spawnCreature();
-				p5.spawnCreature();
-			}
-			for( int i = 0; i < 20; i++ )
-				p4.spawnCreature();							
+			p1.setOwner( clients.get(0).getPlayers().get(0).getId() );
+			for( int i = 0; i < 20; i++ )							
+				p1.spawnCreature();			
+			
+			p2.setOwner( clients.get(0).getPlayers().get(1).getId() );
+			for( int i = 0; i < 4; i++ )							
+				p2.spawnCreature();			
+			
+			p3.setOwner( clients.get(0).getPlayers().get(2).getId() );
+			for( int i = 0; i < 20; i++ )							
+				p3.spawnCreature();			
 						
-			p2.spawnTree();
-			p4.spawnTree();
-				
+			sim.calculatePaths();
 			
 			return sim;
 		}

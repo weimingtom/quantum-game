@@ -435,7 +435,7 @@ public strictfp class Creature extends Boid implements AliveGameObject
 		for( int i = 0; i < samples; i++ )
 		{
 			Creature creature = planet.getCreatures().get( (int)sim.rand(0, planet.getCreatures().size() - 1) );
-			if( creature.isDead() || !creature.isBorn() || creature.getOwner() == owner )
+			if( creature.isDead() || !creature.isBorn() || creature.getOwner() == owner || sim.isAlly( creature.getOwner(), owner ))
 			{		
 				samples--;
 				continue;

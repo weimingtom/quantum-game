@@ -25,6 +25,7 @@ import quantum.game.Bot;
 import quantum.game.GameLoop;
 import quantum.game.GameRecorder;
 import quantum.game.Simulation;
+import quantum.game.commands.AllyCommand;
 import quantum.net.Client;
 import quantum.net.Server;
 import quantum.net.messages.DisconnectedMessage;
@@ -57,9 +58,9 @@ public class BasicTest extends JFrame implements GLEventListener
 	{		
 //		server.setLogging( true );
 		client = new Client( "marzec", "localhost", 7776 );				
-		bot = new Bot( "dat/scripts/simplebot.bsh", "bot", client );
-		bot2 = new Bot( "dat/scripts/simplebot.bsh", client.getPlayer().getId() );
-//		bot3 = new Bot( "dat/scripts/simplebot.bsh", "bot 2", client );
+//		bot = new Bot( "dat/scripts/simplebot.bsh", "bot", client );
+		bot2 = new Bot( "dat/scripts/simplebot.bsh", "bot 1", client );
+		bot3 = new Bot( "dat/scripts/simplebot.bsh", "bot 2", client );
 //		bot4 = new Bot( "dat/scripts/simplebot.bsh", "bot 3", client );
 		client.sendMessage( new ReadyMessage( client.getPlayer().getId(), client.getPlayer().getName() ) );		
 		
@@ -81,8 +82,12 @@ public class BasicTest extends JFrame implements GLEventListener
 			{
 				sim = ((SimulationMessage)msg).getSimulation();
 				sim.setClient(client);
-//				sim.setAlly( client.id, 10000, AllyCommand.ALLY);
-				//sim.setAlly( 10000, client.getPlayer().getId(), AllyCommand.ALLY);
+				sim.setAlly( client.getPlayer().getId(), bot2.getId(), AllyCommand.ALLY);
+				sim.setAlly( bot2.getId(), client.getPlayers().get(0).getId(), AllyCommand.ALLY);
+				sim.moveCreatures( client.getPlayer().getId(), 0, 2, 5);
+				sim.moveCreatures( bot2.getId(), 1, 2, 1);
+//				sim.setAlly( client.get, 10000, AllyCommand.ALLY);
+//				sim.setAlly( 10000, client.getPlayer().getId(), AllyCommand.ALLY);
 				game = new GameLoop( client, sim, false );	
 				sim_msg = (SimulationMessage)msg;
 				break;
@@ -161,8 +166,9 @@ public class BasicTest extends JFrame implements GLEventListener
 //		game.setLogging( true );
 		game.update((GLCanvas)canvas);				
 		game.render((GLCanvas)canvas);
-		bot.update( sim );
+//		bot.update( sim );
 		bot2.update( sim );		
+		bot3.update( sim );
 //		bot3.update( sim );
 //		bot4.update( sim );
 //		game.getRenderer().setRenderAllPaths( true );

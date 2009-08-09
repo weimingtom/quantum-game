@@ -13,7 +13,7 @@ package quantum.game;
 public strictfp class Constants 
 {		
 	public static int VERSION = 131;
-	public static String VERSION_STRING = "1.31";
+	public static String VERSION_STRING = "1.33";
 	
 	public static int TURN_TIME = 16;
 	public static int COMMAND_TURNS = 30;	
