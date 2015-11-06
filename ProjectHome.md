@@ -1,0 +1,1 @@
+Quantum is a simple multiplayer clone of Dyson ( http://www.dyson-game.com ) written in Java. It features an ingame editor, scriptable bots via beanshell, automatic matchmaking and son on.
